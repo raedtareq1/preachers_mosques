@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المساجد والخطباء</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>نظام إدارة المساجد والخطباء</h1>
+        <form id="generateForm">
+            <label for="mosqueCount">عدد المساجد:</label>
+            <input type="number" id="mosqueCount" name="mosqueCount"  required onkeyup="">
+
+            <label for="preacherCount">عدد الخطباء:</label>
+            <input type="number" id="preacherCount" name="preacherCount" required>
+
+            <label for="rowsCount">عدد البيانات المطلوبة:</label>
+            <input type="number" id="rowsCount" name="rowsCount" required>
+
+            <button type="reset" id="generateButton">توليد</button>
+        </form>
+        <div id="resultTable"></div>
+    </div>
+
+    <script src="script.js">
+        
+    </script>
+</body>
+
+</html>

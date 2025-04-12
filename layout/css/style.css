@@ -1,0 +1,64 @@
+@font-face {
+    font-family: "jf";
+    src: url("../fonts/JF_Flat.otf");
+}
+
+/*  */
+.fa {
+    font: normal normal normal 16px / 1 FontAwesome;
+}
+
+/*  */
+
+
+body {
+    font-family: "jf";
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+}
+
+.index {
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input,
+select,
+button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+.response {
+    margin-top: 20px;
+    font-weight: bold;
+    color: green;
+}
+
+/* FOOTER */
+footer {
+    width: 100%;
+    background: #aaa;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px;
+}
