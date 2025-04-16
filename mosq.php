@@ -1,8 +1,12 @@
 <?php 
+    session_start();
+    if (!isset($_SESSION['userPreacher'])) {
+        header('location: login.php');
+    }
     include 'config.php';
     $pageTitle = "المساجد";
-    include 'includes/header.php';
-    include 'includes/navBar.php';
+    include 'includes/tmp/header.php';
+    include 'includes/tmp/navBar.php';
     // 
     $mosq = "";
     if(isset($_GET['mosq'])){
@@ -24,9 +28,21 @@
                 <button type="submit" class="btn btn-primary btn-sm"> اضافة خطيب</button>
             </form>
         <?php } elseif ($mosq == "insert") {
-            $mosq_name = $_POST['mosq_name'];
-            $conn->query("INSERT INTO `mosques`( `name`) VALUES ('$mosq_name')");
-            header("location: ?");
+            $mosq_name = trim( $_POST['mosq_name']);
+            $errs = [];
+                if (empty($mosq_name)) {
+                    $errs[] = 'يجب ادخال الاسم';
+                }
+                if (empty($errs)) {                    
+                    $conn->query("INSERT INTO `mosques`( `name`) VALUES ('$mosq_name')");
+                    header('location: mosq.php');
+                }else{
+                    foreach ($errs as $err) {
+                        echo "<div class='alert alert-danger'>". $err ."</div>";
+                    }
+                    header("refresh: 3; url= mosq.php?mosq=add");
+                }
+            
         }elseif ($mosq == "edit") {
             $id = $_GET['id'];
                     $stmt = $conn->prepare("SELECT * FROM `mosques` WHERE id = $id");
@@ -58,8 +74,11 @@
             $id = $_GET['id'];
             $stmt = $conn->query("DELETE FROM `mosques` WHERE `id` = $id");
             header("location: ?");
+        }elseif($mosq == 'delete_all'){
+            $conn->query("DELETE FROM `mosques`");
+            header("location: mosq.php");
         }else{?>
-            <input type="text"  name="text_search" class="form-control border-primary text-danger" onkeyup="getvalueinput(this.value)" placeholder="ابحث في الجدول">
+            <input type="text"  name="text_search" class="form-control text-primary" onkeyup="getvalueinput(this.value)" placeholder="ابحث في الجدول">
             <div class="table-responsive-sm">
                 <table class="table text-center table-hover">
                     <thead>
@@ -88,10 +107,11 @@
                     </tbody>
                 </table>
                 <a href="?mosq=add" class="btn btn-primary my-3"><i class="fa fa-plus"></i> اضافة مسجد</a>
+                <a href="?mosq=delete_all" class="btn btn-danger my-3" onclick="return do_sure()"><i class="fa fa-trash"></i> تفريغ الجدول</a>
             </div> 
         <?php } ?>
     </div>
-    <?php include 'includes/footer.php';?>
+    <?php include_once 'includes/tmp/footer.php';?>
     
 <script>
         function getvalueinput(value){

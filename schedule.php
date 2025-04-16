@@ -1,11 +1,9 @@
 <?php
 	include 'config.php';
-    // OLD $stmt = $conn->prepare("SELECT preachers.name as prechName, mosques.name as mosqName FROM preachers INNER JOIN mosques ORDER BY RAND() LIMIT 22");
-    // $stmt = $conn->prepare("SELECT DISTINCT `name` FROM preachers WHERE `name` NOT IN (SELECT name_preacher FROM `schedules` ORDER BY `schedules`.`name_preacher` ASC) ORDER BY RAND() LIMIT 22");
-    $stmt = $conn->prepare("SELECT DISTINCT preachers.name AS prech_name,mosques.name AS mosq_name FROM preachers INNER JOIN mosques
-                                    WHERE preachers.name NOT IN (SELECT name_preacher FROM `schedules`) 
-                                    AND   mosques.name   NOT IN (SELECT name_mosque   FROM `schedules`)
-                                    ORDER BY RAND() LIMIT 22");
+    $stmt = $conn->prepare("WITH teachers_ranked AS(SELECT *, ROW_NUMBER() OVER (ORDER BY RAND()) AS rn FROM preachers),
+        students_ranked AS ( SELECT *, ROW_NUMBER() OVER (ORDER BY RAND()) AS rn FROM mosques )
+        SELECT t.id AS teacher_id, t.name AS prech_name, s.id AS student_id, s.name AS mosq_name
+        FROM teachers_ranked t JOIN students_ranked s ON t.rn = s.rn;");
     $stmt->execute();
     $final_data = $stmt->fetchAll();
     $prechs = [];

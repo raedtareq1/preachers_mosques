@@ -2,6 +2,10 @@
     font-family: "jf";
     src: url("../fonts/JF_Flat.otf");
 }
+@font-face {
+    font-family: "tj";
+    src: url("../fonts/Tajawal-Medium.ttf");
+}
 
 /*  */
 .fa {
@@ -27,9 +31,10 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+h1.title {
     text-align: center;
     margin-bottom: 20px;
+    font-family: 'tj';
 }
 
 label {
@@ -61,4 +66,22 @@ footer {
     text-align: center;
     text-transform: uppercase;
     padding: 10px;
+}
+#prev {
+    width: 600px;
+    height: 600px;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+#prev img {
+    width: 100%;
+    height: 100%;
+}
+/* ---------------------- */
+.profile form{
+    max-width: 600px;
+    margin:  0 auto;
 }
